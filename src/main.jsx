@@ -6,7 +6,7 @@ import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* BrowserRouter habilita el enrutado con historial del navegador */}
+    {/* habilita el enrutado con historial de navegador */}
     <BrowserRouter>
       <App />
     </BrowserRouter>
