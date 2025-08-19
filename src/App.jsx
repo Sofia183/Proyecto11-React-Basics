@@ -22,10 +22,10 @@ export default function App() {
 
       <main style={{ padding: '16px', maxWidth: 1200, margin: '0 auto' }}>
         <Routes>
-          {/* Home: listado y buscador (lo conectamos en el paso 2) */}
+          {/* Home: listado y buscador */}
           <Route path="/" element={<Home />} />
 
-          {/* Detalle con parámetro :id (OSM node id) */}
+          {/* Detalle con parámetro :id OMS */}
           <Route path="/detail/:id" element={<Detail />} />
 
           {/* 404 */}
