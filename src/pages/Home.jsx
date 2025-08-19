@@ -2,24 +2,22 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function Home() {
-  // 🔎 Búsqueda (input) y consulta aplicada al pulsar Buscar/Enter
   const [term, setTerm] = useState('')
   const [query, setQuery] = useState('')
 
-  // 📦 Datos y UI
   const [items, setItems] = useState([])        // tiendas normalizadas
   const [loading, setLoading] = useState(false) // estado de carga
   const [error, setError] = useState('')        // mensaje de error
   const [page, setPage] = useState(1)           // paginación
   const PAGE_SIZE = 12
 
-  // 🗃️ Cache local para acelerar recargas
+  // Cache local para acelerar recargas
   const CACHE_KEY = 'cbd-bcn:v1'
   const CACHE_TTL_MS = 15 * 60 * 1000 // 15 minutos
 
   // ===== Helpers =============================================================
 
-  // Dirección legible desde tags de OSM
+  // Dirección legible
   function buildAddress(tags = {}) {
     const street = [tags['addr:street'], tags['addr:housenumber']].filter(Boolean).join(' ')
     const city = [tags['addr:postcode'], tags['addr:city']].filter(Boolean).join(' ')
@@ -27,7 +25,7 @@ export default function Home() {
     return [full || street, city].filter(Boolean).join(', ')
   }
 
-  // BBox para el iframe de OpenStreetMap (west,south,east,north)
+  // OpenStreetMap (west,south,east,north)
   function bboxForEmbed(lat, lon, d = 0.005) {
     const south = lat - d
     const north = lat + d
@@ -36,7 +34,7 @@ export default function Home() {
     return `${west},${south},${east},${north}`
   }
 
-  // Normaliza strings (minúsculas, sin acentos)
+  
   function norm(v) {
     return (v || '')
       .toLowerCase()
@@ -44,7 +42,7 @@ export default function Home() {
       .replace(/\p{Diacritic}/gu, '')
   }
 
-  // Cache: leer
+  
   function getCache() {
     try {
       const raw = localStorage.getItem(CACHE_KEY)
@@ -58,7 +56,7 @@ export default function Home() {
     }
   }
 
-  // Cache: guardar
+  
   function setCache(items) {
     try {
       localStorage.setItem(CACHE_KEY, JSON.stringify({
@@ -66,11 +64,10 @@ export default function Home() {
         fetchedAt: Date.now()
       }))
     } catch {
-      // si Storage falla, lo ignoramos
+     
     }
   }
 
-  // Overpass por GET con mirrors y timeout
   async function fetchOverpassGet(queryText) {
     const ENDPOINTS = [
       'https://overpass.kumi.systems/api/interpreter',
@@ -115,7 +112,7 @@ export default function Home() {
         return
       }
 
-      // 2) Si no hay cache, pedimos a Overpass
+      // 2) Si no hay cache, Overpass
       setItems([])
 
       // Query amplia (área metropolitana + varias etiquetas/palabras clave)
@@ -157,7 +154,7 @@ export default function Home() {
           }
         })
 
-        // Guardar en cache para próximas cargas instantáneas
+        // Guardar en cache para próximas cargas
         setCache(normalized)
 
         if (!cancel) {
