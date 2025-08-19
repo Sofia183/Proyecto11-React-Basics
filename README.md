@@ -1,43 +1,47 @@
 # PROJECT11_REACT_BASICS
 
-SPA en React (Vite) que consume la API pública de **Rick & Morty**.  
-Incluye **React Router**, **estados (useState)**, **efectos (useEffect)**, **petición a API**, y **diseño responsive**.
+Aplicación React (Vite) que lista **puntos de venta relacionados con CBD en el área metropolitana de Barcelona** usando datos abiertos de **OpenStreetMap** vía **Overpass API** (servicio público y sin clave).
 
-## 🚀 Arranque local
+> Nota: los datos provienen de OpenStreetMap (comunidad). **No garantizan** que los comercios estén “autorizados” ni su vigencia.
+
+## Arranque local
 
 ```bash
 npm install
 npm run dev
 
-Abre la URL que muestre Vite (normalmente http://localhost:5173).
+URL que muestra Vite (por ejemplo http://localhost:5173 o http://localhost:5174).
 
 ## Rutas
 
-/ → lista de personajes (buscador + paginación).
+/ → listado de tiendas:
 
-/detail/:id → detalle de personaje (usa el parámetro :id para pedir los datos).
+Buscador por nombre + dirección + web (no utilizar tildes ni apostrofes)
 
-## Requisitos del enunciado (cumplidos)
+Botón Buscar y también funciona con Enter.
 
-Responsive: grid fluido y layout centrado.
+Paginación en cliente.
 
-Buenas prácticas HTML/CSS: estilos globales, variables CSS, semántica básica.
+Mini-mapa embebido (OpenStreetMap) en cada tarjeta cuando hay coordenadas.
 
-Estados (mín. 3): query, page, items, loading, error, totalPages.
+/detail/:id → ruta preparada con parámetro :id (OSM id).
+(Opcional a futuro: pedir detalle por id a Overpass y mostrar ficha ampliada.)
 
-useEffect (mín. 1): en Home (lista) y en Detail (detalle por id).
+## Fuente de datos (Overpass API)
 
-Petición a API: https://rickandmortyapi.com/api/character
+Endpoint: https://overpass.kumi.systems/api/interpreter (con fallback a https://overpass-api.de/api/interpreter)
 
-Lista: ?page=X&name=QUERY
+Consulta: Overpass QL con bounding box amplia de Barcelona, buscando:
 
-Detalle: /character/:id
+shop=cannabis / shop=hemp
 
-React Router: declaración de rutas (+ :id) y navegación con Link.
+palabras clave (cbd, cannabis, hemp, grow, vape, smoke) en name/brand/operator/description
+
+otras tiendas tipo herbalist, health_food, e-cigarette, vape, etc. cuando el nombre contiene esas palabras.
 
 ## Stack
+
 React + Vite
-
 React Router DOM
-
 Fetch API nativa
+Overpass API (OpenStreetMap)

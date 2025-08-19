@@ -5,7 +5,7 @@ import Detail from './pages/Detail.jsx'
 export default function App() {
   return (
     <>
-      {/* Header simple con navegación */}
+      {/* Header con navegación */}
       <header style={{
         padding: '12px 16px',
         borderBottom: '1px solid #eee',
@@ -14,20 +14,18 @@ export default function App() {
         alignItems: 'center',
         flexWrap: 'wrap'
       }}>
-        <h1 style={{ fontSize: '20px', margin: 0 }}>PROJECT11_REACT_BASICS</h1>
+        <h1 style={{ fontSize: '20px', margin: 0 }}>Puntos CBD · Barcelona</h1>
         <nav style={{ display: 'flex', gap: '10px' }}>
-          {/* NavLink marca activo automáticamente */}
           <NavLink to="/" style={{ textDecoration: 'none' }}>Inicio</NavLink>
         </nav>
       </header>
 
-      {/* Contenido de cada ruta */}
       <main style={{ padding: '16px', maxWidth: 1200, margin: '0 auto' }}>
         <Routes>
-          {/* Ruta principal */}
+          {/* Home: listado y buscador (lo conectamos en el paso 2) */}
           <Route path="/" element={<Home />} />
 
-          {/* Ruta con parámetro :id */}
+          {/* Detalle con parámetro :id (OSM node id) */}
           <Route path="/detail/:id" element={<Detail />} />
 
           {/* 404 */}
